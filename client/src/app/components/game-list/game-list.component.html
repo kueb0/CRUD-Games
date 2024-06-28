@@ -1,0 +1,23 @@
+<!-- col-md pinta tarjetas de bootstrap y el ngfor es un ciclo que 
+recorrerá todos los juegos y crea una variable para cada juego-->
+<div class="col-md-4" *ngFor="let game of games">
+<!-- Por cada juego que obtengo se genera una cabecera y cuerpo del mismo-->
+    <div class="card text-center">
+        <div class="card-header bg-dark text-white d-flex justify-content-between aligne-items-center">
+            {{game.title}}
+            <button class="btn btn-danger" (click)="deleteGame(game.id)">
+                <i class="far fa.trash-alt"></i>
+            </button>
+        </div>
+        <!-- Entrada de imagen recomendada para Angular -->
+        <img [src]="game.image" class="card-img-top">
+        <div class="card-body">
+            <p>{{game.description}}</p>
+            <a [routerLink]="['/games/edit',game.id]" class="btn btn-info btn-block">
+                EDIT GAME
+            </a>
+        </div>
+
+    </div>
+
+</div>
