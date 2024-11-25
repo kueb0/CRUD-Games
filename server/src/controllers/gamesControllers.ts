@@ -2,12 +2,17 @@ import {Request, Response} from 'express';
 import pool from '../database';
 
 class GamesController{
-    public async list(req: Request, resp: Response){
-        //pool.query('DESCRIBE games');
-        const games = await pool.query('SELECT* FROM games');
-        resp.json(games);
-        
+    // public async list(req: Request, resp: Response){
+    //     //pool.query('DESCRIBE games');
+    //     const games = await pool.query('SELECT* FROM games');
+    //     resp.json(games);
+    
+    public async list(req: Request, resp: Response): Promise<void> {
+        const [games] = await pool.query('SELECT * FROM games');
+        resp.json(games); // Enviar solo los datos
     }
+
+   
 
     public async getOne(req:Request, resp:Response): Promise <any>{
         const {id}=req.params;

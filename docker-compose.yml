@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+  mariadbGames:
+    container_name: mariadbGames
+    image: mariadb:11.5
+    ports:
+      - "3310:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: 1234
+      MARIADB_DATABASE: ng_games_db
+    networks:
+      - skagGames
+    volumes:
+      - data-mariadb2:/var/lib/mysql
+    restart: always
+  
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: games-back
+    networks:
+      - skagGames
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mariadbGames
+    restart: always
+
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: games-frontend
+    ports:
+      - "4200:4200"
+    networks:
+      - skagGames
+    depends_on:
+      - backend
+    restart: always
+
+volumes:
+  data-mariadb2:
+    name: data-mariadb2
+
+networks:
+  skagGames:
+    driver: bridge

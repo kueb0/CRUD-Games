@@ -1,7 +1,6 @@
 import express, {Application} from 'express';
 import indexRoutes from './routes/indexRoutes';
 import gamesRoutes from './routes/gamesRoutes';
-import gamersRoutes from './routes/gamersRoutes'; //cambié g a mayúscula
 import morgan from 'morgan';
 import cors from 'cors';
 
@@ -24,7 +23,6 @@ class Server{
     routes():void{
         this.app.use('/',indexRoutes);
         this.app.use('/api/games',gamesRoutes);
-        this.app.use('/api/gamers',gamersRoutes)
     }
  
     start():void{

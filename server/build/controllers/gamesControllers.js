@@ -15,11 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.gamesController = void 0;
 const database_1 = __importDefault(require("../database"));
 class GamesController {
+    // public async list(req: Request, resp: Response){
+    //     //pool.query('DESCRIBE games');
+    //     const games = await pool.query('SELECT* FROM games');
+    //     resp.json(games);
     list(req, resp) {
         return __awaiter(this, void 0, void 0, function* () {
-            //pool.query('DESCRIBE games');
-            const games = yield database_1.default.query('SELECT* FROM games');
-            resp.json(games);
+            const [games] = yield database_1.default.query('SELECT * FROM games');
+            resp.json(games); // Enviar solo los datos
         });
     }
     getOne(req, resp) {
